@@ -11,7 +11,7 @@ variable "frontend_sg_name" {
   default = "frontend"
 }
 
-variable "sg_description" {
+variable "frontend_sg_description" {
   type = string
   default = "created sg for frontend instance."
 }
