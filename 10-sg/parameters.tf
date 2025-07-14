@@ -11,3 +11,10 @@ resource "aws_ssm_parameter" "bastion" {
   value = module.bastion.sg_id
   depends_on = [ module.bastion ]
 }
+
+resource "aws_ssm_parameter" "backend_alb" {
+  name  = "/${var.project}/${var.environment}/${var.backend_alb_sg_name}-sg-group"
+  type  = "String"
+  value = module.bastion.sg_id
+  depends_on = [ module.backend_alb ]
+}
