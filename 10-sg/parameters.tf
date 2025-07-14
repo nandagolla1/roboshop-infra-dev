@@ -18,3 +18,10 @@ resource "aws_ssm_parameter" "backend_alb" {
   value = module.bastion.sg_id
   depends_on = [ module.backend_alb ]
 }
+
+resource "aws_ssm_parameter" "vpn" {
+  name  = "/${var.project}/${var.environment}/${var.vpn_sg_name}-sg-group"
+  type  = "String"
+  value = module.vpn.sg_id
+  depends_on = [ module.vpn ]
+}
