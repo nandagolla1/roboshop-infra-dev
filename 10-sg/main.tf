@@ -34,6 +34,15 @@ module "vpn" {
   vpc_id = local.vpc_id
 }
 
+module "mongodb" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.mongodb_sg_name}"
+  sg_description = var.mongodb_sg_description
+  vpc_id = local.vpc_id
+}
+
 
 # attach rules to the bastion to allow access to the bastion server
 resource "aws_security_group_rule" "bastion" {
@@ -100,4 +109,15 @@ resource "aws_security_group_rule" "backend_alb_vpn" {
   protocol          = "tcp"
   source_security_group_id = module.vpn.sg_id
   security_group_id = module.backend_alb.sg_id
+}
+
+# attach rules to the backend alb to allow access from the vpn server
+resource "aws_security_group_rule" "mongodb" {
+  count = length(var.mongodb_ports)
+  type              = "ingress"
+  from_port         = var.mongodb_ports[count.index]
+  to_port           = var.mongodb_ports[count.index]
+  protocol          = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id = module.mongodb.sg_id
 }

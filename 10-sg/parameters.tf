@@ -25,3 +25,10 @@ resource "aws_ssm_parameter" "vpn" {
   value = module.vpn.sg_id
   depends_on = [ module.vpn ]
 }
+
+resource "aws_ssm_parameter" "mongodb" {
+  name  = "/${var.project}/${var.environment}/${var.mongodb_sg_name}-sg-group"
+  type  = "String"
+  value = module.vpn.sg_id
+  depends_on = [ module.mongodb ]
+}
