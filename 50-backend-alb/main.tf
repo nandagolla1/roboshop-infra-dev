@@ -7,6 +7,8 @@ module "backend_alb" {
   subnets = local.private_subnets
   create_security_group = false
   security_groups = [local.backend_sg]
+
+  enable_deletion_protection = false
   
   tags = merge(
     local.local_tags,
