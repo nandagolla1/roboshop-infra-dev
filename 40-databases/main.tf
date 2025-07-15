@@ -7,14 +7,14 @@ resource "aws_instance" "mongodb" {
   tags = merge(
     local.common_tags,
     {
-        Name = "${var.project}-${var.environment}-bastion"
+        Name = "${var.project}-${var.environment}-${var.mongodb_sg_name}"
     }
   )
 }
 
 resource "terraform_data" "mongodb" {
   triggers_replace = [
-    aws_instance.modules.id
+    aws_instance.mongodb.id
   ]
 
   connection {
@@ -32,7 +32,7 @@ resource "terraform_data" "mongodb" {
   provisioner "remote-exec" {
     inline = [ 
         "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh mongodb ${var.var.environment}"
+        "sudo sh /tmp/bootstrap.sh mongodb ${var.environment}"
      ]
   }
 }

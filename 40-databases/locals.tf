@@ -6,6 +6,6 @@ locals {
     terraform = true
   }
 
-  mongodb_sg = data.aws_ssm_parameter.mongodb_sg
-  database_subnet_ids = split(",", data.aws_ssm_parameter.public_subnet_ids.value)[0] 
+  mongodb_sg = data.aws_ssm_parameter.mongodb_sg.value
+  database_subnet_ids = split(",", data.aws_ssm_parameter.database_subnets.value)[0] 
 }
