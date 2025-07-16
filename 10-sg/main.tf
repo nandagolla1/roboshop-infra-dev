@@ -43,6 +43,32 @@ module "mongodb" {
   vpc_id = local.vpc_id
 }
 
+module "redis" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.redis_sg_name}"
+  sg_description = var.redis_sg_description
+  vpc_id = local.vpc_id
+}
+
+module "mysql" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.mysql_sg_name}"
+  sg_description = var.mysql_sg_description
+  vpc_id = local.vpc_id
+}
+
+module "rabbitmq" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.rabbitmq_sg_name}"
+  sg_description = var.rabbitmq_sg_description
+  vpc_id = local.vpc_id
+}
 
 # attach rules to the bastion to allow access to the bastion server
 resource "aws_security_group_rule" "bastion" {
@@ -120,4 +146,34 @@ resource "aws_security_group_rule" "mongodb" {
   protocol          = "tcp"
   source_security_group_id = module.vpn.sg_id
   security_group_id = module.mongodb.sg_id
+}
+
+resource "aws_security_group_rule" "redis" {
+  count = length(var.redis_ports)
+  type              = "ingress"
+  from_port         = var.redis_ports[count.index]
+  to_port           = var.redis_ports[count.index]
+  protocol          = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id = module.redis.sg_id
+}
+
+resource "aws_security_group_rule" "mysql" {
+  count = length(var.mysql_ports)
+  type              = "ingress"
+  from_port         = var.mysql_ports[count.index]
+  to_port           = var.mysql_ports[count.index]
+  protocol          = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id = module.mysql.sg_id
+}
+
+resource "aws_security_group_rule" "rabbitmq" {
+  count = length(var.rabbitmq_ports)
+  type              = "ingress"
+  from_port         = var.rabbitmq_ports[count.index]
+  to_port           = var.rabbitmq_ports[count.index]
+  protocol          = "tcp"
+  source_security_group_id = module.vpn.sg_id
+  security_group_id = module.rabbitmq.sg_id
 }

@@ -29,6 +29,27 @@ resource "aws_ssm_parameter" "vpn" {
 resource "aws_ssm_parameter" "mongodb" {
   name  = "/${var.project}/${var.environment}/${var.mongodb_sg_name}-sg-group"
   type  = "String"
-  value = module.vpn.sg_id
+  value = module.mongodb.sg_id
   depends_on = [ module.mongodb ]
+}
+
+resource "aws_ssm_parameter" "redis" {
+  name  = "/${var.project}/${var.environment}/${var.redis_sg_name}-sg-group"
+  type  = "String"
+  value = module.redis.sg_id
+  depends_on = [ module.redis ]
+}
+
+resource "aws_ssm_parameter" "mysql" {
+  name  = "/${var.project}/${var.environment}/${var.mysql_sg_name}-sg-group"
+  type  = "String"
+  value = module.mysql.sg_id
+  depends_on = [ module.mysql ]
+}
+
+resource "aws_ssm_parameter" "rabbitmq" {
+  name  = "/${var.project}/${var.environment}/${var.rabbitmq_sg_name}-sg-group"
+  type  = "String"
+  value = module.rabbitmq.sg_id
+  depends_on = [ module.rabbitmq ]
 }

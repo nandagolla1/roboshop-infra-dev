@@ -60,3 +60,48 @@ variable "mongodb_ports" {
   type = list(string)
   default = [ "22", "27017" ]
 }
+
+variable "redis_sg_name" {
+    type = string
+  default = "redis"
+}
+
+variable "redis_sg_description" {
+  type = string
+  default = "created redis sg."
+}
+
+variable "redis_ports" {
+  type = list(string)
+  default = [ "22", "6379" ]
+}
+
+variable "mysql_sg_name" {
+    type = string
+  default = "mysql"
+}
+
+variable "mysql_sg_description" {
+  type = string
+  default = "created mysql sg."
+}
+
+variable "mysql_ports" {
+  type = list(string)
+  default = [ "22", "3306" ]
+}
+
+variable "rabbitmq_sg_name" {
+    type = string
+  default = "rabbitmq"
+}
+
+variable "rabbitmq_sg_description" {
+  type = string
+  default = "created rabbitmq sg."
+}
+
+variable "rabbitmq_ports" {
+  type = list(string)
+  default = [ "22", "5672" ]
+}
