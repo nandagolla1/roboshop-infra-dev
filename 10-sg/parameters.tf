@@ -53,3 +53,10 @@ resource "aws_ssm_parameter" "rabbitmq" {
   value = module.rabbitmq.sg_id
   depends_on = [ module.rabbitmq ]
 }
+
+resource "aws_ssm_parameter" "catalogue" {
+  name  = "/${var.project}/${var.environment}/${var.catalogue_sg_name}-sg-group"
+  type  = "String"
+  value = module.catalogue.sg_id
+  depends_on = [ module.catalogue ]
+}

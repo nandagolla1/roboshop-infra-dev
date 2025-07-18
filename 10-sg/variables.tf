@@ -105,3 +105,13 @@ variable "rabbitmq_ports" {
   type = list(string)
   default = [ "22", "5672" ]
 }
+
+variable "catalogue_sg_name" {
+    type = string
+  default = "catalogue"
+}
+
+variable "catalogue_sg_description" {
+  type = string
+  default = "created catalogue sg."
+}
