@@ -134,7 +134,7 @@ resource "aws_launch_template" "catalogue" {
 
 
 ##auto scaling group for catalogue
-resource "aws_autoscaling_group" "bar" {
+resource "aws_autoscaling_group" "catalogue" {
   name                      = "${var.project}-${var.environment}-catalogue"
   max_size                  = 5
   min_size                  = 1
@@ -148,7 +148,7 @@ resource "aws_autoscaling_group" "bar" {
 
   launch_template {
     id = aws_ami_from_instance.catalogue.id
-    version = aws_ami_from_instance.catalogue.latest_version
+    version = "$Latest"
   }
 
   dynamic "tags" {
