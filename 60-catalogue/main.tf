@@ -159,7 +159,7 @@ resource "aws_autoscaling_group" "catalogue" {
       }
     )
     content{
-      key = tags.key
+      key = tag.key
       value = tag.value
       propagate_at_launch = true
     }
