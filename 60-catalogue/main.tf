@@ -165,17 +165,17 @@ resource "aws_autoscaling_group" "catalogue" {
     }
   }
 
-    instance_refresh {
-    strategy = "Rolling"
-    preferences {
-      min_healthy_percentage = 50
-    }
-    triggers = ["launch_template"]
+  instance_refresh {
+  strategy = "Rolling"
+  preferences {
+    min_healthy_percentage = 50
   }
+  triggers = ["launch_template"]
+}
 
-    timeouts{
-    delete = "15m"
-  }  
+  timeouts{
+  delete = "15m"
+}  
 }
 
 
