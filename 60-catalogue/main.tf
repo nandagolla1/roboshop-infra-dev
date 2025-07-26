@@ -144,14 +144,14 @@ resource "aws_autoscaling_group" "catalogue" {
   force_delete              = true
   ##placement_group           = aws_placement_group.test.id
   target_group_arns         = [aws_lb_target_group.catalogue.arn]
-  vpc_zone_identifier       = [local.private_subnets_ids]
+  vpc_zone_identifier       = local.private_subnets_ids
 
   launch_template {
     id = aws_ami_from_instance.catalogue.id
     version = "$Latest"
   }
 
-  dynamic "tags" {
+  dynamic "tag" {
     for_each = merge(
       local.common_tags,
       {
@@ -160,7 +160,7 @@ resource "aws_autoscaling_group" "catalogue" {
     )
     content{
       key = tags.key
-      value = tags.value
+      value = tag.value
       propagate_at_launch = true
     }
   }
