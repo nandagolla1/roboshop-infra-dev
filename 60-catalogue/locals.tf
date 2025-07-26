@@ -7,5 +7,7 @@ locals {
   }
   vpc_id = data.aws_ssm_parameter.vpc_id.value
   catalogue_sg = data.aws_ssm_parameter.catalogue_sg_id.value
-  private_subnets_ids = split(",", data.aws_ssm_parameter.private_subnets.value)[0]
+  private_subnets_id = split(",", data.aws_ssm_parameter.private_subnets.value)[0]
+  private_subnets_ids = split(",", data.aws_ssm_parameter.private_subnets.value)
+  backend_alb_listener_arn = data.aws_ssm_parameter.backend_alb_listener_arn.value
 }
