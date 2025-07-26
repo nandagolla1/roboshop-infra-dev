@@ -147,7 +147,7 @@ resource "aws_autoscaling_group" "catalogue" {
   vpc_zone_identifier       = local.private_subnets_ids
 
   launch_template {
-    id = aws_ami_from_instance.catalogue.id
+    id = aws_launch_template.catalogue.id
     version = "$Latest"
   }
 
