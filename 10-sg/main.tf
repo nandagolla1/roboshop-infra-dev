@@ -79,6 +79,53 @@ module "catalogue" {
   vpc_id = local.vpc_id
 }
 
+module "user" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.user_sg_name}"
+  sg_description = var.user_sg_description
+  vpc_id = local.vpc_id
+}
+
+module "cart" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.cart_sg_name}"
+  sg_description = var.cart_sg_description
+  vpc_id = local.vpc_id
+}
+
+module "shipping" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.shipping_sg_name}"
+  sg_description = var.shipping_sg_description
+  vpc_id = local.vpc_id
+}
+
+module "payment" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.payment_sg_name}"
+  sg_description = var.payment_sg_description
+  vpc_id = local.vpc_id
+}
+
+module "frontend_alb" {
+  source = "git::https://github.com/nandagolla1/terraform-aws-securitygroup.git?ref=main"
+  project = var.project
+  environment = var.environment
+  sg_name = "${var.project}-${var.environment}-${var.frontend_alb_sg_name}"
+  sg_description = var.frontend_alb_sg_description
+  vpc_id = local.vpc_id
+}
+
+
+
 # attach rules to the bastion to allow access to the bastion server
 resource "aws_security_group_rule" "bastion" {
   type              = "ingress"

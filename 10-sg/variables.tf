@@ -115,3 +115,53 @@ variable "catalogue_sg_description" {
   type = string
   default = "created catalogue sg."
 }
+
+variable "user_sg_name" {
+    type = string
+  default = "user"
+}
+
+variable "user_sg_description" {
+  type = string
+  default = "created user sg."
+}
+
+variable "cart_sg_name" {
+    type = string
+  default = "cart"
+}
+
+variable "cart_sg_description" {
+  type = string
+  default = "created cart sg."
+}
+
+variable "shipping_sg_name" {
+    type = string
+  default = "shipping"
+}
+
+variable "shipping_sg_description" {
+  type = string
+  default = "created shipping sg."
+}
+
+variable "payment_sg_name" {
+    type = string
+  default = "payment"
+}
+
+variable "payment_sg_description" {
+  type = string
+  default = "created payment sg."
+}
+
+variable "frontend_alb_sg_name" {
+    type = string
+  default = "frontend_alb"
+}
+
+variable "frontend_alb_sg_description" {
+  type = string
+  default = "created sg for frontend alb instance."
+}
